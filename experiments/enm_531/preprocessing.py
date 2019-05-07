@@ -29,7 +29,7 @@ import numpy.testing as npt
 from skimage.transform import resize
 import subprocess
 import pickle
-
+import openslide
 import configs
 cf = configs.configs()
 
@@ -66,7 +66,7 @@ def pp_patient(inputs):
 def aggregate_meta_info(exp_dir):
 
     files = [os.path.join(exp_dir, f) for f in os.listdir(exp_dir) if 'meta_info' in f]
-    df = pd.DataFrame(columns=['pid', 'class_target', 'spacing', 'fg_slices'])
+    df = pd.DataFrame(columns=['pid', 'class_target', 'y1', 'x1', 'y2','x2'])
     for f in files:
         with open(f, 'rb') as handle:
             df.loc[len(df)] = pickle.load(handle)
